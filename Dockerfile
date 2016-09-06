@@ -12,5 +12,6 @@ VOLUME ["/etc/traefik"]
 RUN apk add --no-cache ca-certificates
 
 ADD https://github.com/containous/traefik/releases/download/v${TRAEFIK_VERSION}/traefik_linux-arm /traefik
+RUN chmod a+x /traefik
 
 ENTRYPOINT ["/traefik"]
