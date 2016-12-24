@@ -2,12 +2,12 @@ pipeline:
   docker:
     repo: armswarm/traefik
     build_args:
-      - TRAEFIK_VERSION=1.0.3
+      - TRAEFIK_VERSION=1.1.2
       - VCS_REF=${DRONE_COMMIT_SHA}
       - VCS_URL=${DRONE_REPO_LINK}
       - BUILD_DATE=${DRONE_BUILD_CREATED}
       - PROJECT_NAME=${DRONE_REPO}
-    tag: [ "latest", "1.0", "1.0.3" ]
+    tag: [ "latest", "1.1", "1.1.2" ]
     when:
       branch: master
       event: push
