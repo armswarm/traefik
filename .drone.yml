@@ -1,17 +1,19 @@
+clone:
+  git:
+    image: armswarmdrone/git
+
 pipeline:
   docker:
-    repo: armswarm/traefik
+    image: armswarmdrone/docker
+    repo: quay.io/armswarm/traefik
     build_args:
-      - TRAEFIK_VERSION=1.1.2
-      - VCS_REF=${DRONE_COMMIT_SHA}
-      - VCS_URL=${DRONE_REPO_LINK}
-      - BUILD_DATE=${DRONE_BUILD_CREATED}
-      - PROJECT_NAME=${DRONE_REPO}
-    tag: [ "latest", "1.1", "1.1.2" ]
+      - TRAEFIK_VERSION=1.2.3
+    tag: [ "v1.2.3-alpine", "1.2.3-alpine", "v1.2-alpine", "1.2-alpine", "morbier-alpine"]
     when:
       branch: master
       event: push
 
   slack:
+    image: armswarmdrone/slack
     when:
       status: [ failure, success ]
