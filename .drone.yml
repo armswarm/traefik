@@ -1,9 +1,11 @@
+platform: linux/arm
+
 clone:
   git:
     image: armswarmdrone/git
 
 pipeline:
-  docker:
+  build_and_publish:
     image: armswarmdrone/docker
     repo: quay.io/armswarm/traefik
     build_args:
@@ -13,7 +15,7 @@ pipeline:
       branch: master
       event: push
 
-  slack:
+  notify:
     image: armswarmdrone/slack
     when:
       status: [ failure, success ]
