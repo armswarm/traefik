@@ -2,20 +2,22 @@ platform: linux/arm
 
 clone:
   git:
-    image: armswarmdrone/git
+    image: quay.io/armswarm/drone-git
 
 pipeline:
   build_and_publish:
-    image: armswarmdrone/docker
+    image: quay.io/armswarm/drone-docker
+    secrets: [ docker_registry, docker_username, docker_password ]
     repo: quay.io/armswarm/traefik
     build_args:
-      - TRAEFIK_VERSION=1.2.3
-    tag: [ "v1.2.3-alpine", "1.2.3-alpine", "v1.2-alpine", "1.2-alpine", "morbier-alpine"]
+      - TRAEFIK_VERSION=1.3.8
+    tag: [ "v1.3.8-alpine", "1.3.8-alpine", "v1.3-alpine", "1.3-alpine", "raclette-alpine", "alpine"]
     when:
       branch: master
       event: push
 
   notify:
-    image: armswarmdrone/slack
+    image: quay.io/armswarm/drone-slack
+    secrets: [ slack_webhook, plugin_channel, plugin_template ]
     when:
       status: [ failure, success ]
